@@ -9,6 +9,12 @@ class Work extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'date',
+        'start_work',
+        'end_work',
+    ];
+
     public function rests(){
         return $this->hasMany('App\Models\Rest');
     }

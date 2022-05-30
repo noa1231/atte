@@ -9,6 +9,11 @@ class Rest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'start_rest',
+        'end_rest',
+    ];
+
     public function work(){
         return $this->belongsTo('App\Models\Work');
     }
