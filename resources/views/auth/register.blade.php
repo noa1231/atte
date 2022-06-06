@@ -1,9 +1,16 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            会員登録
         </x-slot>
 
         <!-- Validation Errors -->
@@ -44,16 +51,17 @@
                                 type="password"
                                 name="password_confirmation" required />
             </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
+            <x-button class="ml-4">
+                    会員登録
                 </x-button>
+            <div class="flex items-center justify-end mt-4">
+                <p>アカウントをお持ちの方はこちら</p>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    ログイン
+                </a>
             </div>
         </form>
     </x-auth-card>
 </x-guest-layout>
+</body>
+</html>
