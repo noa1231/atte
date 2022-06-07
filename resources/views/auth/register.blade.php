@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <x-guest-layout>
+    <h1>Atte</h1>
     <x-auth-card>
         <x-slot name="logo">
             会員登録
@@ -62,6 +62,5 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
 </body>
 </html>

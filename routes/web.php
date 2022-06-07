@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::middleware('auth')->group(function () {
+    Route::get('/',[AttendanceController::class,'index']);
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+});
+
+
 
 require __DIR__.'/auth.php';
