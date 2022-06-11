@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/',[AttendanceController::class,'index']);
-
+    Route::post('/attendance/start',[AttendanceController::class,'start'])->name('start_work');
 });
 
 

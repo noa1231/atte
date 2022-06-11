@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/register.css" />
 </head>
 <body>
     <h1>Atte</h1>
-    <x-auth-card>
+    <div class="main">
         <x-slot name="logo">
-            会員登録
+            <h2>会員登録</h2>
         </x-slot>
 
         <!-- Validation Errors -->
@@ -21,23 +22,17 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="name" type="text" name="name" :value="old('name')" placeholder="名前" required autofocus />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="email" class="email" type="email" name="email" :value="old('email')" placeholder="メールアドレス" required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
+                <x-input id="password" class="password" placeholder="パスワード"
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" />
@@ -45,9 +40,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
+                <x-input id="password_confirmation" class="password_confirmation" placeholder="確認用パスワード"
                                 type="password"
                                 name="password_confirmation" required />
             </div>
@@ -55,12 +48,15 @@
                     会員登録
                 </x-button>
             <div class="flex items-center justify-end mt-4">
-                <p>アカウントをお持ちの方はこちら</p>
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <p class="message">アカウントをお持ちの方はこちら</p>
+                <a href="{{ route('login') }}" class="login">
                     ログイン
                 </a>
             </div>
         </form>
-    </x-auth-card>
+    </div>
+    <div class="log">
+        <small>Atte,inc.</small>
+    </div>
 </body>
 </html>
