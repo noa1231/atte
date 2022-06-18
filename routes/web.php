@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/',[AttendanceController::class,'index']);
+    Route::get('/',[AttendanceController::class,'index'])->name('index');
     Route::post('/attendance/start',[AttendanceController::class,'start'])->name('start_work');
+    Route::post('/attendance/end',[AttendanceController::class,'stop'])->name('end_work');
+    Route::post('/rest/start',[RestController::class,'start'])->name('start_rest');
+    Route::post('/rest/end',[RestController::class,'stop'])->name('end_rest');
+    Route::get('/attendance',[AttendanceController::class,'show'])->name('show');
 });
 
 

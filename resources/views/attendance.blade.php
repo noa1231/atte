@@ -5,15 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="css/index.css" />
 </head>
-<body>
+<body>         
   <header>
     <h1>Atte</h1>
     <nav class="header-nav">
       <ul class="header-nav-list">
         <li class="header-nav-item">
-          <a href="" class="item">ホーム</a>
+          <a href="{{ route('index') }}" class="item">ホーム</a>
         </li>
         <li class="header-nav-item">
           <a href="{{ route('show') }}" class="item">日付一覧</a>
@@ -31,27 +30,25 @@
       </ul>
     </nav>
   </header>
-  <div class="main">
-    <p class="user_name">{{ Auth::user()->name }}さんお疲れ様です!</p>
-    <form method="POST" action="{{ route('start_work') }}">
-      @csrf
-      <input type="submit" value="勤務開始" class="start_work">
-    </form>
-    <form method="POST" action="{{ route('end_work') }}">
-      @csrf
-      <input type="submit" value="勤務終了" class="end_work">
-    </form>
-    <form method="POST" action="{{ route('start_rest') }}">
-      @csrf
-      <input type="submit" value="休憩開始" class="start_rest">
-    </form>
-    <form method="POST" action="{{ route('end_rest') }}">
-      @csrf
-      <input type="submit" value="休憩終了" class="end_rest"> 
-    </form>
-  </div>
-  <div class="log">
-    <small>Atte,inc.</small>
-  </div>
+  <table>
+    <tr>
+      <th>名前</th>
+      <th>勤務開始</th>
+      <th>勤務終了</th>
+      <th>休憩時間</th>
+      <th>休憩時間</th>
+    </tr>
+    @foreach ($items as $item)
+    @foreach ($item->works as $work)
+    <tr>
+      <td>{{ $item->name }}</td>
+      <td>{{ $work->start_work }}</td>
+      <td>{{ $work->end_work }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+    @endforeach
+    @endforeach
+  </table>
 </body>
 </html>

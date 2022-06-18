@@ -16,8 +16,8 @@ class CreateRestsTable extends Migration
         Schema::create('rests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('work_id');
-            $table->time('start_rest');
-            $table->time('end_rest');
+            $table->time('start_rest')->nullable();
+            $table->time('end_rest')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ header{
 }
 .main{
   background-color: whitesmoke;
-  padding-bottom: 60vh;
+  padding-bottom: 65vh;
   padding-top: 10%;
   position: relative;
 }
@@ -56,4 +56,14 @@ header{
   background-color: white;
   font-weight: bold;
   font-size: 150%;
+}
+.log{
+  text-align: center;
+}
+.user_name{
+  position: absolute;
+  top: 1%;
+  left: 37%;
+  font-size: 220%;
+  font-weight: bold;
 }
