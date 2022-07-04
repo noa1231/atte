@@ -33,21 +33,38 @@
   </header>
   <div class="main">
     <p class="user_name">{{ Auth::user()->name }}さんお疲れ様です!</p>
+  
     <form method="POST" action="{{ route('start_work') }}">
       @csrf
-      <input type="submit" value="勤務開始" class="start_work">
+      @if(isset($users->start_work) && !isset($users->end_work))
+      <input type="submit" value="勤務開始" class="start_work"  disabled>
+      @else
+      <input type="submit" value="勤務開始" class="start_work" >
+      @endif
     </form>
     <form method="POST" action="{{ route('end_work') }}">
       @csrf
+      @if(isset($users->start_work) && isset($rests->end_rest))
       <input type="submit" value="勤務終了" class="end_work">
+      @else
+      <input type="submit" value="勤務終了" class="end_work" disabled>
+      @endif
     </form>
     <form method="POST" action="{{ route('start_rest') }}">
       @csrf
+      @if(isset($users->start_work))
       <input type="submit" value="休憩開始" class="start_rest">
+      @else
+      <input type="submit" value="休憩開始" class="start_rest" disabled>
+      @endif
     </form>
     <form method="POST" action="{{ route('end_rest') }}">
       @csrf
-      <input type="submit" value="休憩終了" class="end_rest"> 
+      @if(isset($rests->start_rest))
+      <input type="submit" value="休憩終了" class="end_rest">
+      @else
+      <input type="submit" value="休憩終了" class="end_rest" disabled>
+      @endif
     </form>
   </div>
   <div class="log">

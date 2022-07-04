@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Work;
 use App\Models\User;
+use App\Models\Rest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -14,7 +16,15 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        return view('index');
+        $users = Work::with(['user'])->latest()->first();
+        $rests = Rest::with(['work'])->latest()->first();
+        // $users = Work::all();
+        //dd($users);
+        return view('index',[
+            'users' => $users,
+            'rests' => $rests
+    ]);
+        // return $users;
     }
 
     //勤務開始
@@ -46,8 +56,7 @@ class AttendanceController extends Controller
 
         $dt = new Carbon();
         $time = $dt->toTimeString();
-        Work::where('user_id',$id)->update(['end_work' => $time]);
-        
+        Work::where('user_id',$id)->latest()->first()->update(['end_work' => $time]);
         return redirect('/');
     }
 
@@ -57,6 +66,13 @@ class AttendanceController extends Controller
     {
         $items = User::all();
         
-        return view('attendance',['items' => $items]);
+        $start_rests = Rest::with(['work'])->get('start_rest');
+        $end_rests = Rest::with(['work'])->get('end_rest');
+
+        //dd($start_rests);
+        return view('attendance',[
+            'items' => $items,
+            
+    ]);
     }
 }
