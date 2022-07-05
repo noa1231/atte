@@ -52,7 +52,7 @@
     </form>
     <form method="POST" action="{{ route('start_rest') }}">
       @csrf
-      @if(isset($users->start_work))
+      @if(isset($users->start_work) && isset($rests->end_rest))
       <input type="submit" value="休憩開始" class="start_rest">
       @else
       <input type="submit" value="休憩開始" class="start_rest" disabled>

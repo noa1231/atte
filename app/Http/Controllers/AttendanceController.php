@@ -18,7 +18,10 @@ class AttendanceController extends Controller
     {
         $users = Work::with(['user'])->latest()->first();
         $rests = Rest::with(['work'])->latest()->first();
-        // $users = Work::all();
+        //$today = Carbon::today();
+        //$users = Work::whereDate('created_at', $today)->get();
+       // $rests = Rest::whereDate('created_at', $today)->get();
+    
         //dd($users);
         return view('index',[
             'users' => $users,
@@ -69,7 +72,7 @@ class AttendanceController extends Controller
         $start_rests = Rest::with(['work'])->get('start_rest');
         $end_rests = Rest::with(['work'])->get('end_rest');
 
-        //dd($start_rests);
+        dd($start_rests);
         return view('attendance',[
             'items' => $items,
             
