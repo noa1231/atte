@@ -36,7 +36,7 @@
   
     <form method="POST" action="{{ route('start_work') }}">
       @csrf
-      @if(isset($users->start_work) && !isset($users->end_work))
+      @if(isset($users->start_work))
       <input type="submit" value="勤務開始" class="start_work"  disabled>
       @else
       <input type="submit" value="勤務開始" class="start_work" >
@@ -44,7 +44,7 @@
     </form>
     <form method="POST" action="{{ route('end_work') }}">
       @csrf
-      @if(isset($users->start_work) && isset($rests->end_rest))
+      @if(isset($users->start_work))
       <input type="submit" value="勤務終了" class="end_work">
       @else
       <input type="submit" value="勤務終了" class="end_work" disabled>
@@ -52,15 +52,19 @@
     </form>
     <form method="POST" action="{{ route('start_rest') }}">
       @csrf
-      @if(isset($users->start_work) && isset($rests->end_rest))
+      @if(isset($users->start_work) && !isset($rests->start_rest))
       <input type="submit" value="休憩開始" class="start_rest">
+      @elseif(isset($rests->end_rest))
+      <input type="submit" value="休憩開始" class="start_rest">
+      @elseif(isset($users->end_work))
+      <input type="submit" value="休憩開始" class="start_rest" disabled>
       @else
       <input type="submit" value="休憩開始" class="start_rest" disabled>
       @endif
     </form>
     <form method="POST" action="{{ route('end_rest') }}">
       @csrf
-      @if(isset($rests->start_rest))
+      @if(isset($rests->start_rest) && !isset($users->end_work))
       <input type="submit" value="休憩終了" class="end_rest">
       @else
       <input type="submit" value="休憩終了" class="end_rest" disabled>

@@ -16,17 +16,16 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $users = Work::with(['user'])->latest()->first();
-        $rests = Rest::with(['work'])->latest()->first();
-        //$today = Carbon::today();
-        //$users = Work::whereDate('created_at', $today)->get();
-       // $rests = Rest::whereDate('created_at', $today)->get();
+        // $users = Work::with(['user'])->latest()->first();
+        // $rests = Rest::with(['work'])->latest()->first();
+        $today = Carbon::today();
+        // $users = Work::whereDate('created_at', $today)->latest()->get();
+        // $rests = Rest::whereDate('created_at', $today)->latest()->get();
+        $users = Work::whereDate('created_at', $today)->latest()->first();
+        $rests = Rest::whereDate('created_at', $today)->latest()->first();
     
         //dd($users);
-        return view('index',[
-            'users' => $users,
-            'rests' => $rests
-    ]);
+        return view('index', compact('users', 'rests'));
         // return $users;
     }
 
@@ -69,13 +68,14 @@ class AttendanceController extends Controller
     {
         $items = User::all();
         
-        $start_rests = Rest::with(['work'])->get('start_rest');
-        $end_rests = Rest::with(['work'])->get('end_rest');
+        $startRests = Rest::with(['work'])->get();
+        $endRests = Rest::with(['work'])->get();
 
-        dd($start_rests);
+        //dd($startRests);
         return view('attendance',[
             'items' => $items,
-            
+            'startRests' => $startRests,
+            'endRests' => $endRests
     ]);
     }
 }

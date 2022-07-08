@@ -41,13 +41,17 @@
     </tr>
     @foreach ($items as $item)
     @foreach ($item->works as $work)
+    @foreach ($startRests as $startRest)
+    @foreach ($endRests as $endRest)
       <tr>
       <td>{{ $item->name }}</td>
       <td>{{ $work->start_work }}</td>
       <td>{{ $work->end_work }}</td>
-      <td>{{ $start_rest }}</td>
+      <td>{{$endRest}}</td>
       <td></td>
     </tr>
+    @endforeach
+    @endforeach
     @endforeach
     @endforeach
   </table>
