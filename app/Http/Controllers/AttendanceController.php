@@ -16,17 +16,15 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        // $users = Work::with(['user'])->latest()->first();
-        // $rests = Rest::with(['work'])->latest()->first();
+        
         $today = Carbon::today();
-        // $users = Work::whereDate('created_at', $today)->latest()->get();
-        // $rests = Rest::whereDate('created_at', $today)->latest()->get();
+
+        $id = Auth::id();
+        
         $users = Work::whereDate('created_at', $today)->latest()->first();
         $rests = Rest::whereDate('created_at', $today)->latest()->first();
-    
         //dd($users);
         return view('index', compact('users', 'rests'));
-        // return $users;
     }
 
     //勤務開始
@@ -66,16 +64,19 @@ class AttendanceController extends Controller
 
     public function show()
     {
+        $pages = Work::Paginate(5);
+
         $items = User::all();
         
-        $startRests = Rest::with(['work'])->get();
-        $endRests = Rest::with(['work'])->get();
+        $startRests = Work::with(['rests'])->get();
 
-        //dd($startRests);
-        return view('attendance',[
-            'items' => $items,
-            'startRests' => $startRests,
-            'endRests' => $endRests
-    ]);
+        foreach($startRests as $startRest){
+            $restTimes = $startRest;
+        }
+        //$endRests = Rest::with(['work'])->get();
+
+        // dd($startRests);
+        return view('attendance',compact('items','pages'));
+        
     }
 }

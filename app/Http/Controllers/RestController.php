@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rest;
+use App\Models\Work;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,12 @@ class RestController extends Controller
 
         $dt = new Carbon();
         $time = $dt->toTimeString();
+        $date = $dt->toDateString();
+
+        $attendance = Work::where('user_id', $id)->where('date', $date)->first();
 
         $startTime = [
-            'work_id' => $id,
+            'work_id' => $attendance->id,
             'start_rest' => $time,
         ];
 
@@ -34,7 +38,12 @@ class RestController extends Controller
 
         $dt = new Carbon();
         $time = $dt->toTimeString();
-        Rest::where('work_id',$id)->latest()->first()->update(['end_rest' => $time]);
+        $date = $dt->toDateString();
+
+        $attendance = Work::where('user_id', $id)->where('date', $date)->first();
+        $attendance_id = $attendance->id;
+
+        Rest::where('work_id',$attendance_id)->latest()->first()->update(['end_rest' => $time]);
         
         return redirect('/');
     }
