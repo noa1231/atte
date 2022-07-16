@@ -18,7 +18,7 @@ class RestController extends Controller
         $dt = new Carbon();
         $time = $dt->toTimeString();
         $date = $dt->toDateString();
-
+        //ログインidとworkのidが結びつく一番新しい日付
         $attendance = Work::where('user_id', $id)->where('date', $date)->first();
 
         $startTime = [

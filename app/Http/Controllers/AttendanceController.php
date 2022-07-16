@@ -41,7 +41,7 @@ class AttendanceController extends Controller
             'user_id' => $id,
             'date'  => $date,
             'start_work' => $time,
-        ];
+        ];  
 
         Work::create($startTime);
 
@@ -64,19 +64,19 @@ class AttendanceController extends Controller
 
     public function show()
     {
+        $dt = Carbon::today();
         $pages = Work::Paginate(5);
 
-        $items = User::all();
-        
-        $startRests = Work::with(['rests'])->get();
+        $items = Work::with('user')->where('date',$dt)->get();
+        //$items = Work::where('date',$dt)->get();
+        //$items = Work::with('rests')->get('created_at',$days)->first();
 
-        foreach($startRests as $startRest){
-            $restTimes = $startRest;
-        }
-        //$endRests = Rest::with(['work'])->get();
+        // foreach($startRests as $startRest){
+        //     $restTimes = $startRest;
+        // }
 
-        // dd($startRests);
-        return view('attendance',compact('items','pages'));
-        
+        //dd($items);
+        return view('attendance',compact('items','pages','dt'));
+        //return $items;
     }
 }

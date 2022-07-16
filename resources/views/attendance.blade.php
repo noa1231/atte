@@ -32,6 +32,9 @@
     </nav>
   </header>
   <div class="main">
+    <button></button>
+    {{$dt->format("Y-m-d")}}
+    <button></button>
     <table>
       <tr class="form"> 
         <th>名前</th>
@@ -41,15 +44,13 @@
         <th>勤務時間</th>
       </tr>
       @foreach ($items as $item)
-      @foreach ($item->works as $work)
       <tr class="form_item">
-        <td>{{ $item->name }}</td>
-        <td>{{ $work->start_work }}</td>
-        <td>{{ $work->end_work }}</td>
+        <td>{{ $item->user->name }}</td>
+        <td>{{ $item->start_work }}</td>
+        <td>{{ $item->end_work }}</td>
         <td></td>
         <td></td>
       </tr>
-      @endforeach
       @endforeach
     </table>
     {{ $pages->links() }}
