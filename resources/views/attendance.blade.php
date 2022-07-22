@@ -16,7 +16,7 @@
           <a href="{{ route('index') }}" class="item">ホーム</a>
         </li>
         <li class="header-nav-item">
-          <a href="{{ route('show') }}" class="item">日付一覧</a>
+          <a href="/attendance/0" class="item">日付一覧</a>
         </li>
         <li class="header-nav-item">
           <form method="POST" action="{{ route('logout') }}">
@@ -32,9 +32,9 @@
     </nav>
   </header>
   <div class="main">
-    <button></button>
-    {{$dt->format("Y-m-d")}}
-    <button></button>
+    <a class="arrow" href="{!! '/attendance/' . ($num - 1) !!}">&lt;</a>
+    <p class="date">{{ $date }}</p>
+    <a class="arrow" href="{!! '/attendance/' . ($num + 1) !!}">&gt;</a>
     <table>
       <tr class="form"> 
         <th>名前</th>
@@ -53,7 +53,6 @@
       </tr>
       @endforeach
     </table>
-    {{ $pages->links() }}
   </div>
   <div class="log">
     <small>Atte,inc.</small>

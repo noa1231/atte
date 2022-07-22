@@ -43,7 +43,7 @@
       @endif
     </form>
     <form method="POST" action="{{ route('end_work') }}">
-      @csrfz
+      @csrf
       @if(isset($users->start_work) && !isset($users->end_work))
       <input type="submit" value="勤務終了" class="end_work">
       @else

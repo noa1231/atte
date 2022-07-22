@@ -21,10 +21,15 @@ class AttendanceController extends Controller
 
         $id = Auth::id();
         
-        $users = Work::whereDate('created_at', $today)->latest()->first();
-        $rests = Rest::whereDate('created_at', $today)->latest()->first();
-        //dd($users);
+        $users = Work::whereDate('created_at', $today)->where('user_id',$id)->latest()->first();
+        if (empty($users)) {
+            return view('index');
+        }else{
+        $rests = $users->rests->first();
+
+        // dd($rests);
         return view('index', compact('users', 'rests'));
+        }
     }
 
     //勤務開始
@@ -62,10 +67,20 @@ class AttendanceController extends Controller
 
     //勤怠の表示
 
-    public function show()
+    public function show(Request $request)
     {
         $dt = Carbon::today();
-        $pages = Work::Paginate(5);
+        $num = (int)$request->num;
+
+        if ($num == 0) {
+            $date = $dt;
+        } elseif ($num > 0) {
+            $date = $dt->addDays($num);
+        } else {
+            $date = $dt->subDays(-$num);
+        }
+
+        // $pages = Work::Paginate(5);
 
         $items = Work::with('user')->where('date',$dt)->get();
         //$items = Work::where('date',$dt)->get();
@@ -75,8 +90,8 @@ class AttendanceController extends Controller
         //     $restTimes = $startRest;
         // }
 
-        //dd($items);
-        return view('attendance',compact('items','pages','dt'));
+        //dd($tests);
+        return view('attendance',compact('items','date', 'num'));
         //return $items;
     }
 }
