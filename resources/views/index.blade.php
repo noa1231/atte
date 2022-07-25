@@ -16,7 +16,7 @@
           <a href="" class="item">ホーム</a>
         </li>
         <li class="header-nav-item">
-          <a href="{{ route('show') }}" class="item">日付一覧</a>
+          <a href="/attendance/0" class="item">日付一覧</a>
         </li>
         <li class="header-nav-item">
           <form method="POST" action="{{ route('logout') }}">

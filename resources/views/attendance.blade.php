@@ -27,14 +27,14 @@
                 ログアウト
             </a>
           </form>
-        </li>
+        </li> 
       </ul>
     </nav>
   </header>
+  <a class="arrow" href="{!! '/attendance/' . ($num - 1) !!}">&lt;</a>
+  <p class="date">{{ $date->format('Y-m-d') }}</p>
+  <a class="arrow" href="{!! '/attendance/' . ($num + 1) !!}">&gt;</a>
   <div class="main">
-    <a class="arrow" href="{!! '/attendance/' . ($num - 1) !!}">&lt;</a>
-    <p class="date">{{ $date }}</p>
-    <a class="arrow" href="{!! '/attendance/' . ($num + 1) !!}">&gt;</a>
     <table>
       <tr class="form"> 
         <th>名前</th>
@@ -53,6 +53,7 @@
       </tr>
       @endforeach
     </table>
+    {{ $items->links() }}
   </div>
   <div class="log">
     <small>Atte,inc.</small>

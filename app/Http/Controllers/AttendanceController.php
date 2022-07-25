@@ -26,9 +26,8 @@ class AttendanceController extends Controller
             return view('index');
         }else{
         $rests = $users->rests->first();
-
-        // dd($rests);
-        return view('index', compact('users', 'rests'));
+        //dd($users);
+        return view('index', compact('users','rests'));
         }
     }
 
@@ -80,17 +79,17 @@ class AttendanceController extends Controller
             $date = $dt->subDays(-$num);
         }
 
-        // $pages = Work::Paginate(5);
+        $items = Work::with('user','rests')->where('date',$dt)->paginate(5);
 
-        $items = Work::with('user')->where('date',$dt)->get();
-        //$items = Work::where('date',$dt)->get();
-        //$items = Work::with('rests')->get('created_at',$days)->first();
+        foreach($items as $item){   
+            $rests = $item->rests;
+            foreach($rests as $rest){
+                $restTime = strtotime('end_rest') - strtotime('start_rest');
+            }
 
-        // foreach($startRests as $startRest){
-        //     $restTimes = $startRest;
-        // }
-
-        //dd($tests);
+        }
+    
+    dd($restTime);
         return view('attendance',compact('items','date', 'num'));
         //return $items;
     }
