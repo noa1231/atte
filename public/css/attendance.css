@@ -2,6 +2,8 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 .header-nav-list {
   display: flex;
@@ -17,7 +19,9 @@ header{
 }
 .main{
   background-color: whitesmoke;
-  padding-bottom: 15vh;
+  padding-bottom: 65vh;
+  height: 850px;
+
   }
   .log{
   text-align: center;
@@ -28,7 +32,7 @@ header{
   }
   table th{
     text-align: center;
-    padding-top: 8%;
+    padding-top: 5%;
   }
   table td{
     text-align: center;
@@ -37,4 +41,34 @@ header{
   }
   .form_item{
     border-top: 2px solid gray;
+  }
+  .day{
+    display: flex;
+    padding-left: 43%;
+    padding-top: 4%;
+    align-items: center;
+    font-size: 170%;
+  }
+  .left{
+    padding-right: 1%;
+    padding-left: 1%;
+    background-color: white;
+    color: blue;
+    text-decoration: none;
+    border: solid;
+    border-color: blue;
+    margin-top: -1%;
+  }
+  .right{
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: white;
+    color: blue;
+    text-decoration: none;
+    border: solid;
+    border-color: blue;
+    margin-top: -1%;
+  }
+  .page{
+    padding-left: 45%;
   }

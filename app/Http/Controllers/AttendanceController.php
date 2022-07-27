@@ -17,18 +17,42 @@ class AttendanceController extends Controller
     public function index()
     {
         
-        $today = Carbon::today();
+        $dt = new Carbon();
+        $today = $dt->toDateString();
 
         $id = Auth::id();
         
-        $users = Work::whereDate('created_at', $today)->where('user_id',$id)->latest()->first();
+        $users = Work::where('user_id',$id)->where('date', $today)->first();
+        // dd($users);
         if (empty($users)) {
             return view('index');
-        }else{
-        $rests = $users->rests->first();
-        //dd($users);
-        return view('index', compact('users','rests'));
         }
+
+        $rests = $users->rests->whereNull("end_rest")->first();
+
+        if ($users->end_work) {
+            return view('index')->with([
+                "is_attendance_start" => true,
+                "is_attendance_end" => true,
+            ]);
+        }
+
+        if ($users->start_work) {
+            if (isset($rests)) {
+                return view('index')->with([
+                    "is_rest" => true,
+                    "is_attendance_start" => true,
+                ]);
+            } else {
+                return view('index')->with([
+                    "is_rest" => false,
+                    "is_attendance_start" => true,
+                ]);
+            }
+        }
+        
+        
+        
     }
 
     //勤務開始
@@ -79,17 +103,42 @@ class AttendanceController extends Controller
             $date = $dt->subDays(-$num);
         }
 
-        $items = Work::with('user','rests')->where('date',$dt)->paginate(5);
-
-        foreach($items as $item){   
+        $items = Work::where('date',$dt)->paginate(5);
+        
+        foreach($items as $index => $item){   
             $rests = $item->rests;
+            $sum = 0;
             foreach($rests as $rest){
-                $restTime = strtotime('end_rest') - strtotime('start_rest');
+                $startTime = $rest->start_rest;
+                $start_dt = new Carbon($startTime);
+                $endTime = $rest->end_rest;
+                $end_dt = new Carbon($endTime);
+                $diff_seconds = $start_dt->diffInSeconds($end_dt);
+                $sum = $sum + $diff_seconds;
             }
+            $start_at = new Carbon($item->start_work);
+            $end_at = new Carbon($item->end_work);
 
+            $diff_start_end = $start_at->diffInSeconds($end_at);
+            $diff_work = $diff_start_end - $sum;
+
+            $res_hours = floor($sum / 3600);
+            $res_minutes = floor(($sum / 60) % 60);
+            $res_seconds = $sum % 60;
+
+            $work_hours = floor($diff_work / 3600);
+            $work_minutes = floor(($diff_work / 60) % 60);
+            $work_seconds = $diff_work % 60;
+
+            $time_dt = Carbon::createFromTime($res_hours, $res_minutes, $res_seconds);
+
+            $time_work = Carbon::createFromTime($work_hours, $work_minutes, $work_seconds);
+
+            $items[$index]->rest_sum = $time_dt->toTimeString();
+            $items[$index]->work_time = $time_work->toTimeString();
         }
     
-    dd($restTime);
+    //dd($items);
         return view('attendance',compact('items','date', 'num'));
         //return $items;
     }
