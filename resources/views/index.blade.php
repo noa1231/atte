@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Atte</title>
   <link rel="stylesheet" href="css/index.css" />
 </head>
 <body>
@@ -36,7 +36,7 @@
   
     <form method="POST" action="{{ route('start_work') }}">
       @csrf
-      @if(!isset($is_attendance_start))
+      @if(isset($is_attendance_start))
       <input type="submit" value="勤務開始" class="start_work" >
       @else
       <input type="submit" value="勤務開始" class="start_work" disabled>
@@ -44,7 +44,7 @@
     </form>
     <form method="POST" action="{{ route('end_work') }}">
       @csrf
-      @if(!isset($is_attendance_end))
+      @if(isset($is_attendance_end))
       <input type="submit" value="勤務終了" class="end_work">
       @else
       <input type="submit" value="勤務終了" class="end_work" disabled>
@@ -52,22 +52,18 @@
     </form>
     <form method="POST" action="{{ route('start_rest') }}">
       @csrf
-      @if(isset($is_rest))
-      @if(!$is_rest)
+      @if(isset($is_rest_start))
       <input type="submit" value="休憩開始" class="start_rest">
       @else
       <input type="submit" value="休憩開始" class="start_rest" disabled>
       @endif
-      @endif
     </form>
     <form method="POST" action="{{ route('end_rest') }}">
       @csrf
-      @if(isset($is_rest))
-      @if($is_rest)
+      @if(isset($is_rest_end))
       <input type="submit" value="休憩終了" class="end_rest">
       @else
       <input type="submit" value="休憩終了" class="end_rest" disabled>
-      @endif
       @endif
     </form>
   </div>
