@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Work;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -21,7 +20,7 @@ class AttendanceController extends Controller
         $id = Auth::id();
         
         $users = Work::where('user_id',$id)->where('date', $today)->first();
-        // dd($users);
+        
         
         // 勤務開始前
         if (empty($users)) {
@@ -106,8 +105,6 @@ class AttendanceController extends Controller
         
         $items = Work::getSumTime($items);
     
-    //dd($items);
         return view('attendance',compact('items','date', 'num'));
-        //return $items;
     }
 }
